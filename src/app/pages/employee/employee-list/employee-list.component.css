@@ -1,0 +1,12 @@
+.mat-mdc-row:hover .mat-mdc-cell {
+  background: #eeeeee;
+  cursor: pointer;
+}
+
+.mat-mdc-paginator {
+  border: 1px solid #eee;
+}
+
+.mat-mdc-table .mat-mdc-header-cell {
+  background-color: #A7C7E7;
+}

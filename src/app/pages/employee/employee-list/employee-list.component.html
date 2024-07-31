@@ -1,0 +1,63 @@
+<div class="p-4">
+  <div class="flex justify-between items-center">
+    <h6 class="m-0" style="color: #005cbb">Employee List</h6>
+    <button mat-flat-button color="primary"
+            (click)="navigateToAdd()">
+      <mat-icon fontIcon="add"></mat-icon>
+        <span>Add Employee</span>
+    </button>
+  </div>
+
+  <div class="flex pt-2">
+    <mat-form-field class="mr-2" appearance="outline">
+      <input matInput (keyup)="onSearch($event)" placeholder="Search by name">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Filter by Job Title</mat-label>
+      <mat-select (selectionChange)="applyFilter($event.value)">
+        <mat-option value="">All</mat-option>
+        <mat-option *ngFor="let job of jobTitles" [value]="job">{{ job }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="w-full xl:w-2/3">
+    <mat-card class="shadow-lg rounded-lg">
+      <div style="overflow-x: auto">
+        <table mat-table
+               [dataSource]="dataSource"
+               class="mat-elevation-z20"
+               matSort (matSortChange)="announceSortChange($event)">
+          <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name</th>
+            <td mat-cell *matCellDef="let element"> {{ element.firstName }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name</th>
+            <td mat-cell *matCellDef="let element"> {{ element.lastName }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="dateOfBirth">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date of Birth</th>
+            <td mat-cell *matCellDef="let element"> {{ element.dateOfBirth | date: 'dd/MM/yyyy h:mm a' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="jobTitle">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Job Title</th>
+            <td mat-cell *matCellDef="let element"> {{ element.jobTitle }}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+      <mat-paginator [pageSize]="10"
+                     [pageSizeOptions]="[5, 10, 20]"
+                     [length]="dataSource.data.length"
+                     showFirstLastButtons>
+      </mat-paginator>
+    </mat-card>
+  </div>
+</div>

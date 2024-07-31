@@ -1,0 +1,55 @@
+<div class="p-4">
+  <div class="flex justify-between items-center">
+    <h6 style="color: #005cbb">Create Employee</h6>
+    <button mat-flat-button color="primary"
+            (click)="navigateToEmployeeList()">
+        <mat-icon fontIcon="chevron_left"></mat-icon>
+        <span>Back</span>
+    </button>
+  </div>
+
+  <div class="w-full xl:w-1/3">
+    <mat-card class="p-2 shadow-2xl rounded-lg">
+      <mat-card-content>
+        <form [formGroup]="saveEmployeeForm" class="flex flex-col">
+          <mat-form-field appearance="outline" class="mb-3 w-full" color="primary">
+            <mat-label>First Name</mat-label>
+            <input formControlName="firstName" matInput/>
+            <mat-error *ngIf="saveEmployeeForm.get('firstName')?.hasError('required')">The name is required.</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="mb-3 w-full" color="primary">
+            <mat-label>Last Name</mat-label>
+            <input formControlName="lastName" matInput/>
+            <mat-error *ngIf="saveEmployeeForm.get('lastName')?.hasError('required')">The surname is required.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="mb-3" color="primary">
+            <mat-label>Date of Birth</mat-label>
+            <input matInput [matDatepicker]="datepicker" formControlName="dateOfBirth"/>
+            <mat-error *ngIf="saveEmployeeForm.get('dateOfBirth')?.hasError('required')">The date of birth is required.
+            </mat-error>
+            <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+            <mat-datepicker #datepicker>
+            </mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="mb-3" color="primary">
+            <mat-label>Job Title</mat-label>
+            <input formControlName="jobTitle" matInput/>
+            <mat-error *ngIf="saveEmployeeForm.get('jobTitle')?.hasError('required')">The job title is required.
+            </mat-error>
+          </mat-form-field>
+
+
+          <div class="flex justify-end">
+            <button mat-raised-button color="primary" (click)="saveEmployee()" class="mr-2"
+                    [disabled]="this.saveEmployeeForm.invalid"> Save Employee
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
